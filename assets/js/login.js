@@ -1,0 +1,76 @@
+$(function () {
+    //点击去注册的链接的时候 让登录页隐藏，注册页显示
+    $('#link_reg').on('click', function () {
+        $('.login-box').hide()
+        $('.reg-box').show()
+
+    })
+    //相反
+    $('#link_login').on('click', function () {
+        $('.reg-box').hide()
+        $('.login-box').show()
+
+    })
+
+    var form = layui.form
+    var layer=layui.layer
+    form.verify({
+        // 自定义一个叫做pwd的校验规则 第一个是规则 第二个是不满足规则透出的内容
+        'pwd': [
+            /^[\S]{6,12}$/
+            , '密码必须6到12位，且不能出现空格'
+        ],
+        //   校验两次密码是否一致
+        repwd: function (value) {
+            //拿到输入的密码和再次输入的密码进行比对 失败提示出来
+            var pwd = $('.reg-box [name=password]').val()
+            if (pwd !== value) {
+                return '两次密码不一致'
+            }
+        }
+
+    })
+
+
+
+    // 注册提交事件
+    $('#form_reg').on('submit', function (e) {
+        // console.log(e);
+        // 阻拦表单默认提交行为
+        e.preventDefault();
+        $.post('http://www.liulongbin.top:3007/api/reguser', { username: $('#form_reg [name=username]').val(),
+         password: $('#form_reg [name=password]').val() }, function (res) {
+            console.log(res);
+            if(res.status !==0){
+                // return console.log(res.message)
+                return layer.msg(res.message)
+            }
+            layer.msg('注册成功 请登录')
+        })
+
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+})
