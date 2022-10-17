@@ -7,10 +7,6 @@ $.ajaxPrefilter(function (options) {
     options.url = `http://www.liulongbin.top:3007` + options.url
     console.log(options.url);
 
-
-
-
-
     //统一为有权限的接口 设置headers请求头
     //判断 如果请求的地址里面 有my那就是要请求头的 不是 就不用请求头
     if (options.url.indexOf('/my/') !== -1) {
@@ -30,6 +26,8 @@ $.ajaxPrefilter(function (options) {
             location.href='/login.html'
         }
     }
+
+
 
 })
 
